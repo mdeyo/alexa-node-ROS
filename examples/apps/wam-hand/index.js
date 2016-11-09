@@ -1,5 +1,40 @@
 #!/usr/bin/env node
 
+var alexa = require('alexa-app');
+
+//// Alexa App functions ////
+
+// Allow this module to be reloaded by hotswap when changed
+module.change_code = 1;
+
+// Define an alexa-app with name that matches name on Alexa Skills Kit
+var app = new alexa.app('wam-hand');
+
+app.launch(function(req, res) {
+    console.log("- launch called -");
+    res.say("Hello wam world");
+});
+
+app.intent("OpenHandIntent", {
+    "utterances": ["Open the hand"]
+}, function(req, res) {
+    console.log("opening hand...");
+    openHandClient.callService(request, function(result) {
+        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+    });
+    res.say('Opening hand');
+});
+
+app.intent("CloseHandIntent", {
+    "utterances": ["Close the hand"]
+}, function(req, res) {
+    console.log("closing hand...");
+    closeHandClient.callService(request, function(result) {
+        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+    });
+    res.say('Closing hand');
+});
+
 // Connecting to ROS
 var ROSLIB = require('roslib');
 
@@ -75,7 +110,7 @@ console.log("Publishing cmd_vel");
 cmdVel.publish(twist);
 */
 // First, we create a Service client with details of the service's name and service type.
-var arm_name = "wam_loki";
+var arm_name = "wam";
 var openHandClient = new ROSLIB.Service({
     ros: ros,
     name: '/' + arm_name + '/open',
