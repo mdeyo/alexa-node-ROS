@@ -1,0 +1,18 @@
+{
+  "name": "alexa-node-ROS",
+  "version": "1.0.0",
+  "description": "A web server module for Alexa (Amazon Echo) apps (skills) using Node.js, Express, and alexa-app to connect to local ROS network",
+  "main": "index.js",
+  "author": "Matt Deyo",
+  "dependencies": {
+    "alexa-app": "^2.1.0",
+    "bluebird": "^2.9.34",
+    "body-parser": "~1.0.1",
+    "ejs": "~0.7.1",
+    "express": "~4.0.0",
+    "hotswap": "^1.1.0"
+  },
+  "devDependencies": {
+    "supervisor": "^0.6.0"
+  }
+}

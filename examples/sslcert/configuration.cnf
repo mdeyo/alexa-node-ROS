@@ -1,0 +1,19 @@
+ [req]
+ distinguished_name = req_distinguished_name
+ x509_extensions = v3_req
+ prompt = no
+ 
+ [req_distinguished_name]
+ C = US
+ ST = MA
+ L = Cambridge
+ O = MERS
+ CN = helloworld2
+ 
+ [v3_req]
+ keyUsage = keyEncipherment, dataEncipherment
+ extendedKeyUsage = serverAuth
+ subjectAltName = @subject_alternate_names
+ 
+ [subject_alternate_names]
+IP.1 = 128.30.25.154
