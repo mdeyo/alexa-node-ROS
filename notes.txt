@@ -1,0 +1,33 @@
+- Notes:
+Where to install on Ubuntu:
+https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+
+(package manager is weird; node is called "nodejs")
+
+- Where to run "npm install ..."?
+- Certificate stuff
+- Go to examples/folder for server.js
+- Setting up skill
+- No example .cnf file
+- No \\ in openssl command
+
+From within package:
+- npm install roslib
+- npm install prompt
+
+
+- https://mers-tactical.csail.mit.edu:443/alexa/wam-hand
+
+
+##
+Steps to start:
+
+roscore
+
+roslaunch rosbridge_server rosbridge_websocket.launch
+
+cd ~/Desktop/alexa-node-ROS/examples/
+
+sudo node server.js
+
+##
