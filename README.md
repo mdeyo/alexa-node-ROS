@@ -95,12 +95,11 @@ Important: Anyone in possession of your private key could masquerade as your ser
 
 Use a text editor to create a configuration file in the following form and save it as a .cnf file (for instance, configuration.cnf):
 
-
+```
 [req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
 prompt = no
-
 
 [req_distinguished_name]
 C = US
@@ -109,16 +108,16 @@ L = Provide the name of the city in which you are located
 O = Provide a name for your organization
 CN = Provide a name for the skill
 
-
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @subject_alternate_names
 
-
 [subject_alternate_names]
 DNS.1 = Provide your fully qualified domain name
-
+or
+IP.1 = Provide your the machine's IP address
+```
 
 Replace the following content in the configuration file with your own values:
 ST: Provide your two letter state abbreviation
@@ -149,7 +148,7 @@ Save the certificate .pem, private key .pem, and the configuration .cnf files in
 
 For example, a completed configuration file for a certificate looks similar to the following example:
 
-
+```
 [req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -169,12 +168,12 @@ subjectAltName = @subject_alternate_names
 
 [subject_alternate_names]
 DNS.1 = wiseguy.mywebserver.com
-
+```
 
 Place the two generated files in the sslcert directory.
 
 
-Add the following properties the to config that creates the server:
+Make sure the following properties are in your config options that create the server:
 
 ```
 AlexaAppServer.start({
