@@ -7,7 +7,7 @@ Current capabilities include publishing to a topic and making service calls in R
 ![alt tag](./alexa-node-ros.png)
 
 
-### Installing Depedencies
+### Node Depedencies
 
 After [installing Node.js](https://nodejs.org/en/), you will need to install the alexa-app package through npm:
 
@@ -15,13 +15,15 @@ After [installing Node.js](https://nodejs.org/en/), you will need to install the
 npm install alexa-app
 ``
 
-Additional missing packages can be installed in the same way. Depending on the install, you might need:
+Additional missing packages can be installed in the project directory the same way. Depending on the install, you might need:
 * hotswap
 * alexa-app
 * express
 * body-parser
 * bluebird
 * ejs
+
+### ROS Depedencies
 
 In addition to [installing ROS](http://wiki.ros.org/ROS/Installation) (any desktop-full, desktop, or ros-base will work), you will need to install rosbridge-server:
 
@@ -169,6 +171,22 @@ subjectAltName = @subject_alternate_names
 DNS.1 = wiseguy.mywebserver.com
 
 
+Place the two generated files in the sslcert directory.
+
+
+Add the following properties the to config that creates the server:
+
+```
+AlexaAppServer.start({
+  httpsPort: 443,
+  httpsEnabled: true,
+  privateKey: 'private-key.pem',
+  certificate: 'cert.cer'
+});
+```
+
+
+
 ### Update the Alexa Skill Configuration with the Self-Signed Certificate
 After creating your certificate, you need to update the configuration in the developer portal. Unlike your private key, the certificate only contains public data and can be shared with Amazon for the purposes of identifying your service. This lets Alexa confirm the validity of the public key portion of the certificate.
 * Log on to the Developer Portal.
@@ -178,15 +196,13 @@ After creating your certificate, you need to update the configuration in the dev
 * Select the option I will upload a self-signed certificate.
 * Open your certificate’s .pem file in a text editor, copy the entire contents, and paste it into the provided text box. The text pasted into the box should look similar to this:
 
-
+```
 ----BEGIN CERTIFICATE----
- 
  
 Encrypted data
 
-
 -----END CERTIFICATE-----
-
+```
 
 ### Configure your Endpoint with the Self-Signed Certificate
 When Alexa sends a request, your service must present your certificate. The subject alternate name in your certificate must match the domain name of your endpoint.
@@ -196,4 +212,3 @@ For example, assume your service’s endpoint is at https://wiseguy.mywebserver.
 
 
 Configure your endpoint to present this certificate. The specifics for doing this depend on how you are hosting the web service. For example, if you use Amazon Web Services Elastic Beanstalk, you upload the certificate file using the AWS Command Line Interface.
-
