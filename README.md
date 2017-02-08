@@ -3,6 +3,10 @@ Connecting Alexa Skills to node.js to ROS.
 
 Current capabilities include publishing to a topic and making service calls in ROS.
 
+
+![alt tag](./alexa-node-ros.png)
+
+
 ### Installing Depedencies
 
 After [installing Node.js](https://nodejs.org/en/), you will need to install the alexa-app package through npm:
