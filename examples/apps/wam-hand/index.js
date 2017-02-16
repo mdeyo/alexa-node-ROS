@@ -53,12 +53,12 @@ app.intent("IdleArmIntent", {
 
 // TODO: Automatically check the ROS parameter server for these!
 var allowable_objects = [
-  {utterance: 'red block', id: 'redblock', say: 'red block'},
-  {utterance: 'yellow block', id: 'yellowblock', say: 'yellow block'},
-  {utterance: 'blue block', id: 'bluearch', say: 'blue arch'},
-  {utterance: 'blue arch', id: 'bluearch', say: 'blue arch'},
-  {utterance: 'green block', id: 'greenblock', say: 'green block'},
-  {utterance: 'pink block', id: 'pinkblock', say: 'pink block'}
+  {utterance: 'red', id: 'redblock', say: 'red block'},
+  {utterance: 'yellow', id: 'yellowblock', say: 'yellow block'},
+  {utterance: 'blue', id: 'bluearch', say: 'blue arch'},
+  {utterance: 'blue', id: 'bluearch', say: 'blue arch'},
+  {utterance: 'green', id: 'greenblock', say: 'green block'},
+  {utterance: 'pink', id: 'pinkblock', say: 'pink block'}
 ];
 
 app.intent("PickupIntent", {
