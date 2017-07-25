@@ -32,13 +32,13 @@ sudo apt-get install ros-kinetic-rosbridge-server
 
 ### Running the Example
 
-To begin, we will the rosbridge v2.0 server with the following:
+To begin, start the rosbridge websocket with the following:
 
 ``
 roslaunch rosbridge_server rosbridge_websocket.launch
 ``
 
-To start the Alexa-app-server, navigate into the examples directory and run the server using node:
+To start the alexa-app-server, navigate into the examples directory and run the server using node:
 
 ``
 cd examples/
@@ -49,9 +49,9 @@ sudo node server.js
 
 If there are no errors, then you can navigate to http://localhost:8081/alexa/publish-example in your browser for the interactive Echo simulator built by [alexa-js](https://github.com/alexa-js)
 
-You can select IntentRequest and PublishHelloIntent to prepare to test the intent in the provided alexa-app. Pressing 'Send Request' below the request object will send the request to the alexa-app the same way that the Alexa Skills Kit will if a connected Echo voice interface understands the intent.
+You can select IntentRequest and PublishHelloIntent to prepare to send the first intent in the provided publish-example alexa-app. Pressing 'Send Request' will send the request object to your local alexa-app the same way that the Alexa Skills Kit will if a connected Echo voice interface understands the intent.
 
-You can see ROS interface in action by running
+You can see the ROS interface in action by running
 ``
 rostopic echo /alexa_msgs
 ``
