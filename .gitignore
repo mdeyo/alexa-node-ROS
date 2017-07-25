@@ -1,2 +1,5 @@
 # ssl certs
 *.pem
+
+# npm packages
+/node_modules

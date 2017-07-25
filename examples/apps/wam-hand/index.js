@@ -11,122 +11,123 @@ module.change_code = 1;
 var app = new alexa.app('wam-hand');
 
 app.launch(function(req, res) {
-    console.log("- launch called -");
-    res.say("Hello wam world");
+  console.log("- launch called -");
+  res.say("Hello wam world");
 });
 
 app.intent("OpenHandIntent", {
-    "utterances": ["Open the hand"]
+  "utterances": ["Open the hand"]
 }, function(req, res) {
-    console.log("opening hand...");
-    openHandClient.callService(request, function(result) {
-        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
-    });
-    res.say('Opening hand');
+  console.log("opening hand...");
+  openHandClient.callService(request, function(result) {
+    console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+  });
+  res.say('Opening hand');
 });
 
 app.intent("CloseHandIntent", {
-    "utterances": ["Close the hand"]
+  "utterances": ["Close the hand"]
 }, function(req, res) {
-    console.log("closing hand...");
-    closeHandClient.callService(request, function(result) {
-        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
-    });
-    res.say('Closing hand');
+  console.log("closing hand...");
+  closeHandClient.callService(request, function(result) {
+    console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+  });
+  res.say('Closing hand');
+});
+
+app.intent("PublishTwistIntent", {
+  "utterances": ["Publish twist", "send twist", "comand twist"]
+}, function(req, res) {
+  console.log("publishing twist cmd...");
+
+  // Publishing a Topic
+  // ------------------
+
+  var cmdVel = new ROSLIB.Topic({ros: ros, name: '/cmd_vel', messageType: 'geometry_msgs/Twist'});
+
+  var twist = new ROSLIB.Message({
+    linear: {
+      x: 0.1,
+      y: 0.0,
+      z: 0.0
+    },
+    angular: {
+      x: 0.0,
+      y: 0.0,
+      z: 0.1
+    }
+  });
+
+  cmdVel.publish(twist);
+  console.log('done publishing')
+
 });
 
 // Connecting to ROS
 var ROSLIB = require('roslib');
 
+var ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+
+ros.on('connection', function() {
+  console.log('Connected to websocket server.');
+});
+
+ros.on('error', function(error) {
+  console.log('Error connecting to websocket server: ', error);
+});
+
+ros.on('close', function() {
+  console.log('Connection to websocket server closed.');
+});
+
+// First, we create a Service client with details of the service's name and service type.
+var arm_name = "wam";
+var openHandClient = new ROSLIB.Service({
+  ros: ros,
+  name: '/' + arm_name + '/open',
+  serviceType: 'std_srvs/Empty'
+});
+var closeHandClient = new ROSLIB.Service({
+  ros: ros,
+  name: '/' + arm_name + '/close',
+  serviceType: 'std_srvs/Empty'
+});
+
+// Then we create a Service Request. The object we pass in to ROSLIB.ServiceRequest matches the
+// fields defined in the srv file.
+
+// Empty request object for open and close hand
+var request = new ROSLIB.ServiceRequest({});
+
+//
+// Old code for command prompt interface
+//
+
+/*
 var prompt = require('prompt');
 prompt.start();
 
 function promptForAction() {
-    prompt.get(['action'], function(err, result) {
-        //
-        // Log the results.
-        //
-        console.log('Command-line input received:');
-        // console.log(' action: ' + result.action);
-        if (result.action == "close") {
-            console.log("closing hand...");
-            closeHandClient.callService(request, function(result) {
-                console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
-            });
-        }
-        if (result.action == "open") {
-            console.log("opening hand...");
-            openHandClient.callService(request, function(result) {
-                console.log('Result for service call on ' + openHandClient.name + ': ' + result);
-            });
-        }
-        promptForAction();
-
-    });
-
-}
-
-
-var ros = new ROSLIB.Ros({
-    url: 'ws://localhost:9090'
-});
-
-ros.on('connection', function() {
-    console.log('Connected to websocket server.');
-    promptForAction();
-});
-
-ros.on('error', function(error) {
-    console.log('Error connecting to websocket server: ', error);
-});
-
-ros.on('close', function() {
-    console.log('Connection to websocket server closed.');
-});
-
-// Publishing a Topic
-// ------------------
-/*
-var cmdVel = new ROSLIB.Topic({
-    ros: ros,
-    name: '/cmd_vel',
-    messageType: 'geometry_msgs/Twist'
-});
-
-var twist = new ROSLIB.Message({
-    linear: {
-        x: 0.1,
-        y: 0.2,
-        z: 0.3
-    },
-    angular: {
-        x: -0.1,
-        y: -0.2,
-        z: -0.3
+  prompt.get(['action'], function(err, result) {
+    //
+    // Log the results.
+    //
+    console.log('Command-line input received:');
+    // console.log(' action: ' + result.action);
+    if (result.action == "close") {
+      console.log("closing hand...");
+      closeHandClient.callService(request, function(result) {
+        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+      });
     }
-});
-
-console.log("Publishing cmd_vel");
-cmdVel.publish(twist);
+    if (result.action == "open") {
+      console.log("opening hand...");
+      openHandClient.callService(request, function(result) {
+        console.log('Result for service call on ' + openHandClient.name + ': ' + result);
+      });
+    }
+  });
+}
 */
-// First, we create a Service client with details of the service's name and service type.
-var arm_name = "wam";
-var openHandClient = new ROSLIB.Service({
-    ros: ros,
-    name: '/' + arm_name + '/open',
-    serviceType: 'std_srvs/Empty'
-});
-var closeHandClient = new ROSLIB.Service({
-    ros: ros,
-    name: '/' + arm_name + '/close',
-    serviceType: 'std_srvs/Empty'
-});
-// Then we create a Service Request. The object we pass in to ROSLIB.ServiceRequest matches the
-// fields defined in the rospy_tutorials AddTwoInts.srv file.
-// Empty request object for open and close hand
-var request = new ROSLIB.ServiceRequest({});
-// Finally, we call the /add_two_ints service and get back the results in the callback. The result
-// is a ROSLIB.ServiceResponse object.
-// openHandClient.callService(request, function(result) {
-//     console.log('Result for service call on ' + openHandClient.name + ': ' + result);
-// });
+
+module.exports = app;

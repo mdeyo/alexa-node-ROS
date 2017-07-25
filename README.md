@@ -1,5 +1,5 @@
 # alexa-node-ROS
-Connecting Alexa Skills to node.js to ROS. 
+Connecting Alexa Skills to node.js to ROS.
 
 Current capabilities include publishing to a topic and making service calls in ROS.
 
@@ -9,19 +9,12 @@ Current capabilities include publishing to a topic and making service calls in R
 
 ### Node Depedencies
 
-After [installing Node.js](https://nodejs.org/en/), you will need to install the alexa-app package through npm:
+After [installing Node.js](https://nodejs.org/en/), you will need to install dependencies npm:
 
 ``
-npm install alexa-app
+cd alexa-node-ros
+npm install
 ``
-
-Additional missing packages can be installed in the project directory the same way. Depending on the install, you might need:
-* hotswap
-* alexa-app
-* express
-* body-parser
-* bluebird
-* ejs
 
 ### ROS Depedencies
 
@@ -39,27 +32,22 @@ sudo apt-get install ros-kinetic-rosbridge-server
 
 ### Running the Example
 
-To begin, we will launch ROS. To do so, run the following in a terminal: 
-
-``
-roscore
-``
-
-Then we can launch the rosbridge v2.0 server with the following:
+To begin, we will the rosbridge v2.0 server with the following:
 
 ``
 roslaunch rosbridge_server rosbridge_websocket.launch
 ``
 
-To start the Alexa-app-server, navigate into the /examples directory and run:
+To start the Alexa-app-server, navigate into the examples directory and run the server using node:
 
 ``
+cd examples/
 sudo node server.js
 ``
 
 ### Testing the skills
 
-...
+If there are no errors, then you can navigate to http://localhost:8081/alexa/wam-hand in your browser for the interactive Echo simulator built by [alexa-js](https://github.com/alexa-js)
 
 
 ### Configuring Your Web Service to Use a Self-Signed Certificate
@@ -197,7 +185,7 @@ After creating your certificate, you need to update the configuration in the dev
 
 ```
 ----BEGIN CERTIFICATE----
- 
+
 Encrypted data
 
 -----END CERTIFICATE-----
