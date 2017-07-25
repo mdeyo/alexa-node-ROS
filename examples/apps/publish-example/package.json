@@ -1,0 +1,14 @@
+{
+  "name": "publish-example",
+  "version": "1.0.0",
+  "description": "An example skill to show simple ROSLIB publishing to topics",
+  "main": "index.js",
+  "author": "Matt Deyo <12mdeyo@gmail.com> (https://mdeyo.com)",
+  "license": "ISC",
+  "alexa": {
+    "applicationId": ""
+  },
+  "dependencies": {
+    "alexa-app": "^2.1.0"
+  }
+}

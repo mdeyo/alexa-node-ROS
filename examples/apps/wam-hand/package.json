@@ -1,12 +1,12 @@
 {
   "name": "wam-hand",
   "version": "1.0.0",
-  "description": "A node example skill to open and close wam hand",
+  "description": "An example skill to open and close wam hand",
   "main": "index.js",
   "author": "Matt Deyo <mdeyo@mit.edu> (https://git.mers.csail.mit.edu/mdeyo)",
   "license": "ISC",
   "alexa": {
-    "applicationId":""
+    "applicationId": ""
   },
   "dependencies": {
     "alexa-app": "^2.1.0"

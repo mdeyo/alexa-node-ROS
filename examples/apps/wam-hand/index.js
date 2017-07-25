@@ -11,16 +11,16 @@ module.change_code = 1;
 var app = new alexa.app('wam-hand');
 
 app.launch(function(req, res) {
-  console.log("- launch called -");
+  console.log("wam-hand: LaunchIntent");
   res.say("Hello wam world");
 });
 
 app.intent("OpenHandIntent", {
   "utterances": ["Open the hand"]
 }, function(req, res) {
-  console.log("opening hand...");
+  console.log("wam-hand:  opening hand...");
   openHandClient.callService(request, function(result) {
-    console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+    console.log('wam-hand:  Result for service call on ' + closeHandClient.name + ': ' + result);
   });
   res.say('Opening hand');
 });
@@ -28,17 +28,17 @@ app.intent("OpenHandIntent", {
 app.intent("CloseHandIntent", {
   "utterances": ["Close the hand"]
 }, function(req, res) {
-  console.log("closing hand...");
+  console.log("wam-hand: closing hand...");
   closeHandClient.callService(request, function(result) {
-    console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
+    console.log('wam-hand:  Result for service call on ' + closeHandClient.name + ': ' + result);
   });
   res.say('Closing hand');
 });
 
 app.intent("PublishTwistIntent", {
-  "utterances": ["Publish twist", "send twist", "comand twist"]
+  "utterances": ["Publish twist", "send twist", "command twist"]
 }, function(req, res) {
-  console.log("publishing twist cmd...");
+  console.log("wam-hand: publishing twist cmd...");
 
   // Publishing a Topic
   // ------------------
@@ -59,7 +59,7 @@ app.intent("PublishTwistIntent", {
   });
 
   cmdVel.publish(twist);
-  console.log('done publishing')
+  console.log('wam-hand: done publishing twist');
 
 });
 
@@ -69,15 +69,15 @@ var ROSLIB = require('roslib');
 var ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
 
 ros.on('connection', function() {
-  console.log('Connected to websocket server.');
+  console.log('wam-hand: Connected to websocket server.');
 });
 
 ros.on('error', function(error) {
-  console.log('Error connecting to websocket server: ', error);
+  console.log('wam-hand: Error connecting to websocket server: ', error);
 });
 
 ros.on('close', function() {
-  console.log('Connection to websocket server closed.');
+  console.log('wam-hand: Connection to websocket server closed.');
 });
 
 // First, we create a Service client with details of the service's name and service type.
@@ -99,35 +99,5 @@ var closeHandClient = new ROSLIB.Service({
 // Empty request object for open and close hand
 var request = new ROSLIB.ServiceRequest({});
 
-//
-// Old code for command prompt interface
-//
-
-/*
-var prompt = require('prompt');
-prompt.start();
-
-function promptForAction() {
-  prompt.get(['action'], function(err, result) {
-    //
-    // Log the results.
-    //
-    console.log('Command-line input received:');
-    // console.log(' action: ' + result.action);
-    if (result.action == "close") {
-      console.log("closing hand...");
-      closeHandClient.callService(request, function(result) {
-        console.log('Result for service call on ' + closeHandClient.name + ': ' + result);
-      });
-    }
-    if (result.action == "open") {
-      console.log("opening hand...");
-      openHandClient.callService(request, function(result) {
-        console.log('Result for service call on ' + openHandClient.name + ': ' + result);
-      });
-    }
-  });
-}
-*/
 
 module.exports = app;

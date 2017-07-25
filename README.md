@@ -47,7 +47,17 @@ sudo node server.js
 
 ### Testing the skills
 
-If there are no errors, then you can navigate to http://localhost:8081/alexa/wam-hand in your browser for the interactive Echo simulator built by [alexa-js](https://github.com/alexa-js)
+If there are no errors, then you can navigate to http://localhost:8081/alexa/publish-example in your browser for the interactive Echo simulator built by [alexa-js](https://github.com/alexa-js)
+
+You can select IntentRequest and PublishHelloIntent to prepare to test the intent in the provided alexa-app. Pressing 'Send Request' below the request object will send the request to the alexa-app the same way that the Alexa Skills Kit will if a connected Echo voice interface understands the intent.
+
+You can see ROS interface in action by running
+``
+rostopic echo /alexa_msgs
+``
+before sending either the PublishHelloIntent or PublishGoodbyeIntent.
+
+You can also copy-paste the schema and utterances from the simulated Echo interface into your Alexa Skill kit (Echo developer page) to ensure that they match on both ends.
 
 
 ### Configuring Your Web Service to Use a Self-Signed Certificate
