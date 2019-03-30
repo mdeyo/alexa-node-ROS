@@ -24,7 +24,8 @@ app.intent("PublishHelloIntent", {
   console.log("publish-example: PublishHelloIntent");
   // Do stuff with ROS using ROSLIB
   // You can see this String message if you are running rostopic echo /alexa_msgs
-  msg_topic.publish("publish-example says hello");
+  str_msg  =new ROSLIB.Message({data: 'publish-example says hello'})
+  msg_topic.publish(str_msg);
   // Send a response back to the Echo for the voice interface
   res.say('Hello human');
 });
@@ -36,7 +37,8 @@ app.intent("PublishGoodbyeIntent", {
   console.log("publish-example: PublishGoodbyeIntent");
   // Do stuff with ROS using ROSLIB
   // You can see this String message if you are running rostopic echo /alexa_msgs
-  msg_topic.publish("publish-example says goodbye");
+  str_msg  =new ROSLIB.Message({data: 'publish-example says goodbye'})
+  msg_topic.publish(str_msg);
   // Send a response back to the Echo for the voice interface
   res.say('Goodbye human');
 });
