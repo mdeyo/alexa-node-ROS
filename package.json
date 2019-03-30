@@ -14,7 +14,9 @@
     "lodash.defaults": "^4.2.0",
     "prompt": "^1.0.0",
     "roslib": "^0.18.0",
-    "ws": ">=1.1.1"
+    "ws": ">=1.1.1",
+    "mime": ">=1.4.1",
+    "qs": ">=1.0.0"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"
