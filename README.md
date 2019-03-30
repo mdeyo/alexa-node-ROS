@@ -11,24 +11,24 @@ Current capabilities include publishing to a topic and making service calls in R
 
 After [installing Node.js](https://nodejs.org/en/), you will need to install dependencies npm:
 
-``
+```
 cd alexa-node-ros
 npm install
-``
+```
 
 ### ROS Depedencies
 
 In addition to [installing ROS](http://wiki.ros.org/ROS/Installation) (any desktop-full, desktop, or ros-base will work), you will need to install rosbridge-server:
 
-``
+```
 sudo apt-get install ros-<distro>-rosbridge-server
-``
+```
 
 where distro = {hydro, indigo, jade, or kinetic...}, for example:
 
-``
+```
 sudo apt-get install ros-kinetic-rosbridge-server
-``
+```
 
 ### Running the Example
 
@@ -40,10 +40,10 @@ roslaunch rosbridge_server rosbridge_websocket.launch
 
 To start the alexa-app-server, navigate into the examples directory and run the server using node:
 
-``
+```
 cd examples/
 sudo node server.js
-``
+```
 
 ### Testing the skills
 
@@ -52,9 +52,9 @@ If there are no errors, then you can navigate to http://localhost:8081/alexa/pub
 You can select IntentRequest and PublishHelloIntent to prepare to send the first intent in the provided publish-example alexa-app. Pressing 'Send Request' will send the request object to your local alexa-app the same way that the Alexa Skills Kit will if a connected Echo voice interface understands the intent.
 
 You can see the ROS interface in action by running
-``
+```
 rostopic echo /alexa_msgs
-``
+```
 before sending either the PublishHelloIntent or PublishGoodbyeIntent.
 
 You can also copy-paste the schema and utterances from the simulated Echo interface into your Alexa Skill kit (Echo developer page) to ensure that they match on both ends.
@@ -84,11 +84,11 @@ Other SSL Resources.
 Create a Private Key and Self-Signed Certificate for Testing
 Run the following command to create a private key:
 
-``
+```
   openssl genrsa -out private-key.pem 2048
-``
+```
 
-Important: Anyone in possession of your private key could masquerade as your service, so store your key in a secure location. .
+Important: Anyone in possession of your private key could masquerade as your service, so store your key in a secure location.
 
 
 Use a text editor to create a configuration file in the following form and save it as a .cnf file (for instance, configuration.cnf):
@@ -133,12 +133,12 @@ See below for a completed sample configuration file.
 
 Use the following command to generate a certificate. Specify the names you used for your private-key.pem and configuration.cnf files:
 
-``
+```
 openssl req -new -x509 -days 365 \
             -key private-key.pem \
             -config configuration.cnf \
             -out certificate.pem
-``
+```
 
 This produces a self-signed certificate in a file called certificate.pem.
 Save the certificate .pem, private key .pem, and the configuration .cnf files in a safe place, then update the skill configuration with the certificate.
